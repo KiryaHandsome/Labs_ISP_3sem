@@ -9,11 +9,17 @@ namespace _153504_Pryhozhy_Lab1.Interfaces
     public interface ICustomCollection<T>
     {
         public T this[int index] { get;set; }
+
         public void Reset();
+
         public void Next();
+
         public T? Current();
+
         int Count { get; }
+
         public void Add(T item);
+        
         public T? RemoveCurrent();
     }
 }

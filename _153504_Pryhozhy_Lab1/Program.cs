@@ -40,6 +40,8 @@ namespace Program
                     + station.GetPriceOfPurchasedTickets(now.Name, now.Id));
             }
 
+            Delimeter();
+
             for(int i = 0; i < 7; i++)
             {
                 //last iteration must be false
@@ -60,11 +62,18 @@ namespace Program
                 }
             }
 
+            Delimeter();
+
             //check indexator
             var tariffs = station.GetTariffs();
             var lastTariff = tariffs[tariffs.Count - 1];
             Console.WriteLine("Last tariff:" + lastTariff.Path + " " + lastTariff.Price.ToString());
-            
+        }
+
+        public static void Delimeter()
+        {
+            for (int i = 0; i < 40; i++) Console.Write("-");
+            Console.WriteLine();
         }
     }
 }

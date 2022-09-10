@@ -43,10 +43,5 @@ namespace _153504_Pryhozhy_Lab1.Entities
             ticketList.Add(ticket);
             ticket.AddPassenger(this);
         }
-
-        public override int GetHashCode()
-        {
-            return name.GetHashCode() + id.GetHashCode();
-        }
     }
 }
