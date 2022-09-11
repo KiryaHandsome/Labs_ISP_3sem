@@ -20,6 +20,8 @@ namespace _153504_Pryhozhy_Lab1.Interfaces
 
         public void Add(T item);
         
+        public void Remove(T item);
+
         public T? RemoveCurrent();
     }
 }

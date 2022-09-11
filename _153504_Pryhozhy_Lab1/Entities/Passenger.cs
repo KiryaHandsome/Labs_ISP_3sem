@@ -43,5 +43,11 @@ namespace _153504_Pryhozhy_Lab1.Entities
             ticketList.Add(ticket);
             ticket.AddPassenger(this);
         }
+
+        public override bool Equals(object? other)
+        {
+            var obj = other as Passenger;
+            return obj.id == id && obj.Name == name;
+        }
     }
 }

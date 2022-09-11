@@ -41,5 +41,11 @@ namespace _153504_Pryhozhy_Lab1.Entities
         {
             passes.Add(pass);
         }
+
+        public override bool Equals(object? other)
+        {
+            var obj = other as Tariff;
+            return obj.price == price && obj.path == path;
+        }
     }
 }

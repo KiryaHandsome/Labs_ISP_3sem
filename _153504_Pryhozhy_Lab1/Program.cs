@@ -15,7 +15,7 @@ namespace Program
             Station station = new();
             //create tariffs
             Tariff[] ticket = new Tariff[6];
-            string[] paths = {"Minsk", "Gomel", "Mogilev", "Grodno", "Brest", "Vitebsk", "Volkovysk"};
+            string[] paths = { "Minsk", "Gomel", "Mogilev", "Grodno", "Brest", "Vitebsk", "Volkovysk" };
             for (int i = 0; i < 6; i++)
             {
                 ticket[i] = new Tariff(i * 10 + 5, paths[i]);
@@ -36,21 +36,21 @@ namespace Program
             Console.WriteLine("Total price of purchased tickets:");
             foreach (var now in passenger)
             {
-                Console.WriteLine(now.Name + " " + now.Id.ToString() + " : " 
+                Console.WriteLine(now.Name + " " + now.Id.ToString() + " : "
                     + station.GetPriceOfPurchasedTickets(now.Name, now.Id));
             }
 
             Delimeter();
 
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 //last iteration must be false
                 var passes = station.GetPassengersByTicketPath(paths[i]);
-                if(passes != null)
+                if (passes != null)
                 {
                     Console.WriteLine("List of people who go to " + paths[i] + ":");
-                    passes.Reset(); 
-                    for(int j = 0; j < passes.Count; j++)
+                    passes.Reset();
+                    for (int j = 0; j < passes.Count; j++)
                     {
                         Console.WriteLine(passes.Current().Name);
                         passes.Next();
@@ -68,12 +68,27 @@ namespace Program
             var tariffs = station.GetTariffs();
             var lastTariff = tariffs[tariffs.Count - 1];
             Console.WriteLine("Last tariff:" + lastTariff.Path + " " + lastTariff.Price.ToString());
-        }
 
+
+            //remove() tests
+            MyCustomCollection<int> list = new MyCustomCollection<int>();
+            for (int i = 1; i < 12; i++)
+            {
+                list.Add(i);
+            }
+            list.Remove(1);
+            list.PrintCollection();
+            Console.WriteLine();
+            list.Remove(5);
+            list.PrintCollection();
+        }
         public static void Delimeter()
         {
             for (int i = 0; i < 40; i++) Console.Write("-");
             Console.WriteLine();
         }
+
+        
     }
+   
 }

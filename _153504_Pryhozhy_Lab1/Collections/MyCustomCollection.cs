@@ -30,21 +30,21 @@ namespace _153504_Pryhozhy_Lab1.Collections
         {
             get
             {
-                var curr = head;
+                var tmpCurrent = head;
                 for (int i = 0; i < index; i++)
                 {
-                    curr = curr.next;
+                    tmpCurrent = tmpCurrent.next;
                 }
-                return curr.value;
+                return tmpCurrent.value;
             }
             set
             {
-                var curr = head;
+                var tmpCurrent = head;
                 for (int i = 0; i < index; i++)
                 {
-                    curr = curr.next;
+                    tmpCurrent = tmpCurrent.next;
                 }
-                curr.value = value;
+                tmpCurrent.value = value;
             }
         }
 
@@ -68,19 +68,28 @@ namespace _153504_Pryhozhy_Lab1.Collections
 
         public T? RemoveCurrent()
         {
-            var curr = head;
-            while (curr.next != null && curr.next != current)
+            var tmpCurrent = head;
+            if(tmpCurrent == null) return default;
+            if(current == head)
             {
-                curr = curr.next;
-            }
-            this.current = curr;
-            if (curr.next != null)
-            {
-                curr.next = curr.next.next;
+                head = head.next;
+                current = head;
                 count--;
             }
-
-            return curr.value;
+            else
+            {
+                while (tmpCurrent.next != null && tmpCurrent.next != current)
+                {
+                    tmpCurrent = tmpCurrent.next;
+                }
+                this.current = tmpCurrent;
+                if (tmpCurrent.next != null)
+                {
+                    tmpCurrent.next = tmpCurrent.next.next;
+                    count--;
+                }
+            }
+            return tmpCurrent.value;
         }
 
         public void Reset()
@@ -106,6 +115,49 @@ namespace _153504_Pryhozhy_Lab1.Collections
                 tail = tail.next;
             }
             count++;
+        }
+
+        public void Remove(T item)
+        {
+            var curr = head;
+            //null base case
+            if (curr == null) return;
+
+            if(curr.value.Equals(item))
+            {
+                head = head.next;
+                if(count == 1)
+                {
+                    tail = null;
+                }
+                count--;
+            }
+            else
+            {
+                while (curr.next != null && !curr.next.value.Equals(item))
+                {
+                    curr = curr.next;
+                }
+                if (curr.next != null && curr.next.value.Equals(item))
+                {
+                    if(curr.next == tail)
+                    {
+                        tail = curr;
+                    }
+                    curr.next = curr.next.next;
+                    count--;
+                }
+            }
+        }
+
+        public void PrintCollection()
+        {
+            Reset();
+            for (int i = 0; i < count; i++)
+            {
+                Console.Write(Current() + " ");
+                Next();
+            }
         }
     }
 }
