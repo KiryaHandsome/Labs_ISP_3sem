@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _153504_Pryhozhy_Lab1.Collections;
+using _153504_Pryhozhy_Lab2.Collections;
 
-namespace _153504_Pryhozhy_Lab1.Entities
+namespace _153504_Pryhozhy_Lab2.Entities
 {
     public class Tariff
     {
         private double price = 10;
         private string path = "Minsk";
         private MyCustomCollection<Passenger> passes = new MyCustomCollection<Passenger>();
+
         public Tariff(double price, string path)
         {
             this.price = price;
@@ -25,13 +26,13 @@ namespace _153504_Pryhozhy_Lab1.Entities
 
         public double Price
         {
-            get => price; 
+            get => price;
         }
 
         public void PrintPassengers()
         {
             passes.Reset();
-            for(int i = 0; i < passes.Count; i++)
+            for (int i = 0; i < passes.Count; i++)
             {
                 Console.WriteLine(passes.Current().Id);
                 passes.Next();

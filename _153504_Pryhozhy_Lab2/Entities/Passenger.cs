@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _153504_Pryhozhy_Lab1.Collections;
+using _153504_Pryhozhy_Lab2.Collections;
 
-namespace _153504_Pryhozhy_Lab1.Entities
+namespace _153504_Pryhozhy_Lab2.Entities
 {
     public class Passenger
     {
