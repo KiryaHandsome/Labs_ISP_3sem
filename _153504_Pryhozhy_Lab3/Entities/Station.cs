@@ -9,11 +9,9 @@ namespace _153504_Pryhozhy_Lab3.Entities
         private List<Passenger> passengers = new List<Passenger>();
         private Dictionary<string, Tariff> tariffs = new Dictionary<string, Tariff>();
 
-        public delegate void ModificationsHandler(string message);
-        public event ModificationsHandler? Modified;
-
-        public delegate void PurchaseHandler(string message);
-        public event PurchaseHandler? Purchased;
+        public delegate void Handler(string message);
+        public event Handler? Modified;
+        public event Handler? Purchased;
 
         public Station() { }
 
@@ -23,12 +21,12 @@ namespace _153504_Pryhozhy_Lab3.Entities
             Modified?.Invoke($"New Passenger \"{idData}\" was added.");
         }
 
-        public void AddModificationsHandler(ModificationsHandler handler)
+        public void AddModificationsHandler(Handler handler)
         {
             Modified += handler; 
         }
 
-        public void AddPurchaseHandler(PurchaseHandler handler)
+        public void AddPurchaseHandler(Handler handler)
         {
             Purchased += handler;
         }
@@ -71,7 +69,7 @@ namespace _153504_Pryhozhy_Lab3.Entities
         public double PriceOfPurchasedByPassTickets(string id)
         {
             var res = passengers.FirstOrDefault(p => p.Id == id);
-            return  res == default ? res.GetPriceOfPurchasedTickets()
+            return  res != default ? res.GetPriceOfPurchasedTickets()
                 : throw new ValueNotFoundException($"There is no passenger with id {id}.");   
         }
 
@@ -90,11 +88,11 @@ namespace _153504_Pryhozhy_Lab3.Entities
             return passengers.Aggregate(0, (ans, p) => ans += p.GetPriceOfPurchasedTickets() > value ? 1 : 0);
         }
 
-        public IEnumerable<IGrouping<string, double>> GetSumListForEachPath(string passId)
+        public IEnumerable<(string Direction, double Price)> GetSumListForEachPath(string passId)
         {
             var pass = passengers.FirstOrDefault(p => p.Id == passId);
             if(pass == null) throw new ValueNotFoundException($"There is no passenger with id {passId}.");
-            return pass.PurchasedTickets.GroupBy(t => t.Path, t => t.Price);
+            return pass.PurchasedTickets.GroupBy(t => t.Path).Select(g=>(g.Key, g.Sum(t=>t.Price)));
         }
     }
 }

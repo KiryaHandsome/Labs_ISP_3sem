@@ -16,9 +16,9 @@ namespace Program
             Station station = new Station();
             Journal journal = new Journal();
             //link event with action
-            station.AddModificationsHandler(journal.SaveEventInfo);
+            station.Modified+=journal.SaveEventInfo;
             //add lambda expression like function
-            station.AddPurchaseHandler((string message) => Console.WriteLine(message));
+            station.Purchased += (string message) => Console.WriteLine(message);
             //add passengers and tariffs
             station.AddPassenger("Kiryl");      //will  
             station.AddPassenger("Egor");       //be 

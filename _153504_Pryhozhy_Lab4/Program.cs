@@ -20,6 +20,7 @@ namespace _153504_Pryhozhy_Lab4
             fileService.SaveData(bankDeposits, fileName);
 
             if(File.Exists(newFileName)) File.Delete(newFileName);
+            
             File.Move(fileName, newFileName); //rename file
 
             List<BankDeposit> bankDepositsList = new List<BankDeposit>();

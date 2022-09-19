@@ -9,8 +9,8 @@ namespace Program
             Station station = new Station();
             Journal journal = new Journal();
             //link handlers
-            station.AddPurchaseHandler((string message) => Console.WriteLine(message));
-            station.AddModificationsHandler(journal.SaveEventInfo);
+            station.Purchased += (string message) => Console.WriteLine(message);
+            station.Modified += journal.SaveEventInfo;
 
             station.AddTariff(10, "Minsk");
             station.AddTariff(20, "Gomel");
@@ -20,6 +20,8 @@ namespace Program
             station.AddPassenger("Igor");
 
             station.BuyTicketToPassenger("Kirya", "Minsk");
+            station.BuyTicketToPassenger("Kirya", "Gomel");
+            station.BuyTicketToPassenger("Kirya", "Gomel");
             station.BuyTicketToPassenger("Kirya", "Gomel");
             station.BuyTicketToPassenger("Igor", "Gomel");
             var count = 5;
@@ -32,11 +34,8 @@ namespace Program
             Console.WriteLine("Kirya bought next tickets:");
             foreach(var item in list)
             {
-                Console.WriteLine(item.Key);
-                foreach(var price in item)
-                {
-                    Console.WriteLine(price);
-                }
+                Console.WriteLine($"{item.Direction} ---> {item.Price}");
+                
                 Console.WriteLine();
             }
             //max by

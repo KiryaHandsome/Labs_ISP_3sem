@@ -8,11 +8,10 @@ namespace _153504_Pryhozhy_Lab2.Entities
         private MyCustomCollection<Passenger> passengers = new MyCustomCollection<Passenger>();
         private MyCustomCollection<Tariff> tariffs = new MyCustomCollection<Tariff>();
 
-        public delegate void ModificationsHandler(string message);
-        public event ModificationsHandler? Modified;
+        public delegate void Handler(string message);
+        public event Handler? Modified;
 
-        public delegate void PurchaseHandler(string message);
-        public event PurchaseHandler? Purchased;
+        public event Handler? Purchased;
 
         public Station() { }
 
@@ -22,12 +21,12 @@ namespace _153504_Pryhozhy_Lab2.Entities
             Modified?.Invoke($"New Passenger \"{idData}\" was added.");
         }
 
-        public void AddModificationsHandler(ModificationsHandler handler)
+        public void AddModificationsHandler(Handler handler)
         {
             Modified += handler; 
         }
 
-        public void AddPurchaseHandler(PurchaseHandler handler)
+        public void AddPurchaseHandler(Handler handler)
         {
             Purchased += handler;
         }
