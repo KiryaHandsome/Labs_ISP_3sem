@@ -9,30 +9,31 @@ namespace Domain
     [Serializable]
     public class Station
     {
-        private LuggageCompartment luggageCompartment = new LuggageCompartment();
-        private List<string> directions = new List<string>();
-
-
         public Station() { }
         public Station(double luggageCompartmentCapacity, bool isFull = false)
         {
-            luggageCompartment = new LuggageCompartment(luggageCompartmentCapacity, isFull);
+            LuggageCompartment = new LuggageCompartment(luggageCompartmentCapacity, isFull);
         }
 
         public Station(double luggageCompartmentCapacity, bool isFull, List<string> directions)
         {
-            luggageCompartment = new LuggageCompartment(luggageCompartmentCapacity, isFull);
-            this.directions = directions;
+            LuggageCompartment = new LuggageCompartment(luggageCompartmentCapacity, isFull);
+            Directions = directions;
         }
 
-        public void PrintDirections()
+        public List<string> Directions
         {
-            directions.ForEach(direction => Console.WriteLine(direction));
+            get; set;
         }
 
-        public void AddDirection(string direction)
+        public LuggageCompartment LuggageCompartment
         {
-            directions.Add(direction);
+            get; set;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", Directions) + " " + LuggageCompartment.ToString();
         }
     }
 }

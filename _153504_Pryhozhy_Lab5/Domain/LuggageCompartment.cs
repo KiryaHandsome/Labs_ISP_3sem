@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 namespace Domain
 {
     [Serializable]
-    class LuggageCompartment
+    public class LuggageCompartment
     {
-        public LuggageCompartment(double capacity = 10, bool isFull = false)
+        public LuggageCompartment(double capacity, bool isFull)
         {
             Capacity = capacity;
             IsFull = isFull;
         }
+
+        public LuggageCompartment() { }
 
         public double Capacity
         {
@@ -23,6 +25,11 @@ namespace Domain
         public bool IsFull
         {
             get; set;
+        }
+
+        public override string ToString()
+        {
+            return Capacity.ToString() + " " + IsFull.ToString();
         }
     }
 }
