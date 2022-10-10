@@ -7,9 +7,8 @@ using Bank;
 using LoremNET;
 using Service;
 
-namespace Source // Note: actual namespace depends on the project name.
+namespace Source
 {
-    
     public class Program
     {
         static IProgress<string> progress = new Progress<string>(s => Console.WriteLine(s));
@@ -30,16 +29,15 @@ namespace Source // Note: actual namespace depends on the project name.
             StreamService<BankClient> streamService = new StreamService<BankClient>();
             using (MemoryStream stream = new MemoryStream())
             {
-                var task1 = streamService.WriteToStreamAsync(stream, bankClients, progress);
+                var task = streamService.WriteToStreamAsync(stream, bankClients, progress);
 
-                task1?.Wait();
-                Thread.Sleep(200);
+                //await Task.WhenAll(task);
+                await Task.Delay(100);
 
                 var task2 = streamService.CopyFromStreamAsync(stream, fileName, progress);
 
-                task2.Wait();
-
-                int count = await streamService.GetStatisticsAsync(fileName, (x) => x.OpenedAccount);
+                await Task.WhenAll(task2);
+                int count = await streamService.GetStatisticsAsync(fileName, x => x.OpenedAccount);
                 Console.WriteLine($"{count} people opened account in this year.");
             }
         }
